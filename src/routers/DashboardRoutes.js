@@ -1,70 +1,38 @@
 import React from 'react'
 import { Navbar } from '../components/ui/Navbar'
-import { BrowserRouter as Router, Route, Link, NavLink, Redirect, useHistory } from 'react-router-dom'
+import { Redirect, Route, Switch, useLocation } from 'react-router'
 
 import { HeroScreen } from '../components/heroes/HeroScreen'
 import { MarvelScreen } from '../components/marvel/MarvelScreen'
 import { DcScreen } from '../components/dc/DcScreen'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
+export const DashboardRoutes = () => {
 
-
-export const DashboardRoutes = ({value}) => {
-  
-
-    
-    
+    const location = useLocation();
     return (
         <>
-           <Router>
-           <Navbar value={value} /> 
-           
+           <Navbar/> 
+           <div>
+           <TransitionGroup>
 
-           <Route exact key="/marvel" path="/marvel">
-
-            {({ match }) => (
                 <CSSTransition
-                in={match != null}
-                timeout={300}
-                classNames="page"
-                unmountOnExit
+                timeout={1000}
+                className='fade'
+                key={location.key}
                 >
-                    <div className="page">
+               <Switch location={location}>
+                   <Route exact path="/marvel" component={ MarvelScreen} />
+                   <Route exact path="/marvel/:heroeId" component={ HeroScreen} />
+                   <Route exact path="/dc/" component={ DcScreen } />
 
-                    <MarvelScreen/>
-                    </div>
-                </CSSTransition>
-            )}
-            </Route>
-            <Route exact key="/dc" path="/dc">
+                   <Redirect to="/marvel" />
+               </Switch>
 
-            {({ match }) => (
-                <CSSTransition
-                in={match != null}
-                timeout={300}
-                classNames="page"
-                unmountOnExit
-                >
-                    <div className="page">
+               </CSSTransition>
 
-                    <DcScreen/>
-                    </div>
-                </CSSTransition>
-            )}
-            </Route>
-            
-            
-
-
-
-                   {/* <Route key="/otro"  path="/marvel/:heroeId" component={ HeroScreen} /> */}
-                   
-
-                   {/* <Redirect to="/marvel" /> */}
-               
-
-            
-           </Router>
+            </TransitionGroup>
+           </div>
         </>
     )
 }
