@@ -1,10 +1,7 @@
 import React from 'react'
-import { Link, NavLink, useHistory } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
-export const Navbar = ({value}) => {
-
-  
-  
+export const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
             
@@ -18,24 +15,20 @@ export const Navbar = ({value}) => {
             <div className="navbar-collapse">
                 <div className="navbar-nav">
 
-                    <NavLink
-                        key="/marvel"
+                    <NavLink 
                         activeClassName="active"
                         className="nav-item nav-link" 
                         exact
-                        as={NavLink}
                         to="/marvel"
                     >
                         Marvel
                     </NavLink>
 
-                    <NavLink
-                        key="/dc"
+                    <NavLink 
                         activeClassName="active"
                         className="nav-item nav-link" 
                         exact
                         to="/dc"
-                        as={NavLink}
                     >
                         DC
                     </NavLink>
@@ -44,13 +37,14 @@ export const Navbar = ({value}) => {
 
             <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
                 <ul className="navbar-nav ml-auto">
-                <button
-                className="btn btn-primary"
-                onClick={ ()=> value()}
-            >
-
-            Logout
-            </button>
+                    <NavLink 
+                        activeClassName="active"
+                        className="nav-item nav-link" 
+                        exact
+                        to="/login"
+                    >
+                        Logout
+                    </NavLink>
                 </ul>
             </div>
         </nav>

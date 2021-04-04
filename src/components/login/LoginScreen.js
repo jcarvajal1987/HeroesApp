@@ -1,7 +1,11 @@
 import React from 'react'
-import { Link, NavLink, useHistory } from 'react-router-dom'
-export const LoginScreen = ({value}) => {
-    
+
+export const LoginScreen = ({history}) => {
+
+    const handleLogin = () => {
+        history.push('/');
+        //history.replace('/');
+    }
 
     return (
         <div className="container mt-5">
@@ -10,20 +14,11 @@ export const LoginScreen = ({value}) => {
 
             <button
                 className="btn btn-primary"
-                onClick={ ()=> value()}
+                onClick={ handleLogin }
             >
 
             Login
             </button>
-            <NavLink 
-                        activeClassName="active"
-                        className="nav-item nav-link" 
-                        exact
-                        to="/marvel"
-                    >
-                        Marvel
-                    </NavLink>
         </div>
-        
     )
 }
