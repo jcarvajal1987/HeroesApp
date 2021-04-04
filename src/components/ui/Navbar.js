@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 
-export const Navbar = () => {
+export const Navbar = ({match}) => {
     return (
         <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
             
@@ -18,8 +18,9 @@ export const Navbar = () => {
                     <NavLink 
                         activeClassName="active"
                         className="nav-item nav-link" 
-                        exact
-                        to="/marvel"
+                       
+                        to={`${match.url}/marvel`}
+                        
                     >
                         Marvel
                     </NavLink>
@@ -27,8 +28,8 @@ export const Navbar = () => {
                     <NavLink 
                         activeClassName="active"
                         className="nav-item nav-link" 
-                        exact
-                        to="/dc"
+                        
+                        to={`${match.url}/dc`}
                     >
                         DC
                     </NavLink>
@@ -41,7 +42,7 @@ export const Navbar = () => {
                         activeClassName="active"
                         className="nav-item nav-link" 
                         exact
-                        to="/login"
+                        to="/"
                     >
                         Logout
                     </NavLink>

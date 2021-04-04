@@ -7,31 +7,39 @@ import { MarvelScreen } from '../components/marvel/MarvelScreen'
 import { DcScreen } from '../components/dc/DcScreen'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
-export const DashboardRoutes = () => {
+export const DashboardRoutes = ({location,match }) => {
 
-    const location = useLocation();
+    const currentKey = location.pathname.split('/')[1] || '/'
+    const timeout2 = { enter: 300, exit: 200 }
+
+    
     return (
         <>
-           <Navbar/> 
            <div>
-           <TransitionGroup>
+           <Navbar match={match}/> 
+           <TransitionGroup >
 
                 <CSSTransition
-                timeout={1000}
-                className='fade'
-                key={location.key}
+                timeout={300}
+                classNames='page'
+                key={location.pathname}
+                
                 >
+           
                <Switch location={location}>
-                   <Route exact path="/marvel" component={ MarvelScreen} />
-                   <Route exact path="/marvel/:heroeId" component={ HeroScreen} />
-                   <Route exact path="/dc" component={ DcScreen } />
+                    
+                   <Route path={`${match.url}/marvel`} component={ MarvelScreen} />
+                   {/* <Route exact path="/marvel/:heroeId" component={ HeroScreen} /> */}
+                   <Route path={`${match.url}/dc`} e component={ DcScreen } />
 
-                   <Redirect to="/marvel" />
+                   <Redirect to={`${match.url}/marvel`} />
                </Switch>
 
                </CSSTransition>
 
             </TransitionGroup>
+
+              
            </div>
         </>
     )

@@ -3,7 +3,8 @@ import '../styles.css';
 import {
     Switch,
     Route,
-    useLocation
+    useLocation,
+    withRouter
 
   } from "react-router-dom";
 import { LoginScreen } from '../components/login/LoginScreen';
@@ -11,27 +12,31 @@ import { DashboardRoutes } from './DashboardRoutes';
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 
-export const AppRouter = () => {
+const AppRouter = ({location}) => {
 
-    const location = useLocation();
+    const currentKey = location.pathname.split('/')[1] || '/'
+    const timeout = { enter: 300, exit: 200 }
+    
 
-    console.log(location)
+    
+    console.log(location.pathname)
 
     return (
             <div>
             <TransitionGroup >
 
                 <CSSTransition
-                timeout={1000}
-                className='fade'
-                key={location.key}
+                timeout={timeout}
+                classNames='page'
+                key={currentKey}
+                appear
                 >
                 
                     <Switch location={location}>
                  
-                        <Route key={location.key}  exact path="/login" component={ LoginScreen }/>
+                        <Route  exact path="/" component={ LoginScreen }/>
                         
-                        <Route key={location.key} path="/" component={ DashboardRoutes }/>
+                        <Route path="/dash" component={ DashboardRoutes }/>
                     
                     </Switch>
 
@@ -43,3 +48,6 @@ export const AppRouter = () => {
         
     )
 }
+
+
+export default withRouter(AppRouter)
